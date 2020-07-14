@@ -1,6 +1,8 @@
 package com.romulocurso.cursomc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.romulocurso.cursomc.domain.Categoria;
+import com.romulocurso.cursomc.dto.CategoriaDTO;
 import com.romulocurso.cursomc.services.CategoriaService;
 
 @RestController
@@ -23,6 +26,19 @@ public class CategoriaResource {
 	
 	@Autowired
 	private CategoriaService service;
+	
+	
+	@GetMapping
+	public ResponseEntity<List<CategoriaDTO>> findAll() { 					
+		List<Categoria> arrCategoria = service.findAll();
+		
+		List<CategoriaDTO> arrCategoriaDTO = arrCategoria.stream().map(
+				categoria -> new CategoriaDTO(categoria)
+		).collect(Collectors.toList());
+		
+		return ResponseEntity.ok().body(arrCategoriaDTO);
+	}
+	
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<Categoria> find(@PathVariable Integer id) { 
