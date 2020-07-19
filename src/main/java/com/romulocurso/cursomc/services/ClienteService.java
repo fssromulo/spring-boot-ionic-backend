@@ -16,7 +16,6 @@ import com.romulocurso.cursomc.domain.Cidade;
 import com.romulocurso.cursomc.domain.Cliente;
 import com.romulocurso.cursomc.domain.Endereco;
 import com.romulocurso.cursomc.domain.enums.TipoCliente;
-import com.romulocurso.cursomc.domain.Cliente;
 import com.romulocurso.cursomc.dto.ClienteDTO;
 import com.romulocurso.cursomc.dto.ClienteNewDTO;
 import com.romulocurso.cursomc.repositories.ClienteRepository;
@@ -53,6 +52,7 @@ public class ClienteService {
 		return cliente;
 	}
 	
+	@Transactional
 	public Cliente update(Cliente obj) {
 		Cliente objAlterar = this.find(obj.getId());
 		
@@ -60,9 +60,11 @@ public class ClienteService {
 		return repo.save(objAlterar);
 	}
 	
+	@Transactional
 	public void delete(Integer id) {
 		this.find(id);
 		try {
+			
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir um cliente que possui pedidos.");
