@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.romulocurso.cursomc.domain.Categoria;
-import com.romulocurso.cursomc.domain.Cliente;
 import com.romulocurso.cursomc.dto.CategoriaDTO;
 import com.romulocurso.cursomc.repositories.CategoriaRepository;
 import com.romulocurso.cursomc.services.exceptions.DataIntegrityException;
